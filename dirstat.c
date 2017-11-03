@@ -26,6 +26,7 @@ long getSize(char * path){
 int main(){
   // desired path
   char * path = "./";
+
   printf("------------%s------------\n", path);
   // variable initializations
   DIR * directory = opendir(path);
@@ -33,6 +34,7 @@ int main(){
   long size = 0;
   struct dirent * x;
   char temp[500];
+
   // loop through each entry by setting and returning x
   while ((x = readdir(directory))){
     // check if normal file elif directory
@@ -41,10 +43,10 @@ int main(){
       // reset temp to current directory and then do the thing
       strcpy(temp, path);
       size += getSize(strcat(temp, x->d_name));
-
     }else if(x->d_type == DT_DIR){
       printf("directory: %s\n", x->d_name);
     }
   }
+  
   printf("size: %lu\n", size);
 }
