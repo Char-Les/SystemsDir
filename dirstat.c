@@ -29,17 +29,19 @@ int main(){
   printf("------------%s------------\n", path);
   // variable initializations
   DIR * directory = opendir(path);
+  // keeps track of total file size, current file entry and path to file entry
   long size = 0;
-  char temp[500];
   struct dirent * x;
+  char temp[500];
   // loop through each entry by setting and returning x
   while ((x = readdir(directory))){
-    // check if normal file
+    // check if normal file elif directory
     if (x->d_type == DT_REG){
-      // reset temp to current directory and then do things
+      printf("file: %s\n", x->d_name);
+      // reset temp to current directory and then do the thing
       strcpy(temp, path);
       size += getSize(strcat(temp, x->d_name));
-      printf("file: %s\n", x->d_name);
+
     }else if(x->d_type == DT_DIR){
       printf("directory: %s\n", x->d_name);
     }
